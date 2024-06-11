@@ -75,6 +75,7 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
+    after_party (1.11.2)
     base64 (0.2.0)
     bigdecimal (3.1.8)
     bootsnap (1.18.3)
@@ -234,6 +235,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  after_party
   bootsnap
   debug
   dotenv-rails (~> 2.1, >= 2.1.1)
