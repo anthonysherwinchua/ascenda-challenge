@@ -21,5 +21,37 @@ module Matchers
         float2
       end
     end
+
+    def combine_hashes(hash1, hash2)
+      return hash2 if hash1.blank?
+      return hash1 if hash2.blank?
+
+      hash1 = hash1.with_indifferent_access
+      hash2 = hash2.with_indifferent_access
+
+      merged_hash = {}
+
+      hash1.each do |key, value|
+        merged_hash[key] = value
+      end
+
+      hash2.each do |key, value|
+        if merged_hash[key]
+          merged_hash[key] += value
+        else
+          merged_hash[key] = value
+        end
+      end
+
+      merged_hash.transform_values! do |values|
+        values.uniq
+      end
+
+      merged_hash
+    end
+
+    def combine_array(array1, array2)
+      (Array(array1) + Array(array2)).compact.uniq
+    end
   end
 end

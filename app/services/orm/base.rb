@@ -16,7 +16,9 @@ module Orm
     def attributes
       {
         name: sanitize(name),
-        description: sanitize(description)
+        description: sanitize(description),
+        images: images,
+        booking_conditions: sanitized_booking_conditions
       }
     end
 
@@ -37,6 +39,12 @@ module Orm
       end
     end
 
+    def sanitized_booking_conditions
+      booking_conditions.map do |condition|
+        sanitize(condition)
+      end
+    end
+
     def hotel_id
       raise NotImplementedError, "Subclass must implement the `hotel_id` method"
     end
@@ -51,6 +59,14 @@ module Orm
 
     def description
       raise NotImplementedError, "Subclass must implement the `description` method"
+    end
+
+    def images
+      raise NotImplementedError, "Subclass must implement the `images` method"
+    end
+
+    def booking_conditions
+      raise NotImplementedError, "Subclass must implement the `booking_conditions` method"
     end
 
     def latitude

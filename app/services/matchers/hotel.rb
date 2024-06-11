@@ -12,7 +12,9 @@ module Matchers
     def attributes
       {
         name: name,
-        description: description
+        description: description,
+        images: images,
+        booking_conditions: booking_conditions
       }
     end
 
@@ -30,6 +32,20 @@ module Matchers
         hotel.description,
         new_attributes[:description]
       ])
+    end
+
+    def images
+      combine_hashes(
+        hotel.images,
+        new_attributes[:images]
+      )
+    end
+
+    def booking_conditions
+      combine_array(
+        hotel.booking_conditions,
+        new_attributes[:booking_conditions]
+      )
     end
   end
 end

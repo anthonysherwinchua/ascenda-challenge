@@ -18,6 +18,21 @@ module Orm
       original_attributes["details"]
     end
 
+    def images
+      original_attributes["images"]&.transform_values! do |values|
+        values.map do |value|
+          {
+            link: value["link"],
+            description: value["caption"]
+          }
+        end
+      end
+    end
+
+    def booking_conditions
+      original_attributes["booking_conditions"]
+    end
+
     def latitude; end
 
     def longitude; end

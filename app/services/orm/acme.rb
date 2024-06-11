@@ -16,6 +16,10 @@ module Orm
       original_attributes["Description"]
     end
 
+    def images; end
+
+    def booking_conditions; end
+
     def latitude
       original_attributes["Latitude"]
     end
