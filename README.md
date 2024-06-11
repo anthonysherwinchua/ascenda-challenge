@@ -22,3 +22,7 @@ git clone https://github.com/anthonysherwinchua/ascenda-challenge
 
   - rails credentials:edit
   - update the `db` > `password`
+
+##### 4. Run post-deployment tasks
+
+  - run `rails after_party:run`
