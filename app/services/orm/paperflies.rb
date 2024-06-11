@@ -37,5 +37,9 @@ module Orm
     def zipcode
       zipcode_from(original_attributes.dig("location", "address"))
     end
+
+    def amenities
+      original_attributes["amenities"] || []
+    end
   end
 end

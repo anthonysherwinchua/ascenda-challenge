@@ -35,6 +35,13 @@ class HotelData
       hotel.update!(
         Matchers::Hotel.new(hotel, orm_instance.attributes).attributes
       )
+
+      orm_instance.amenities_attributes.each do |key, values|
+        values.each do |value|
+          # TODO: Need another job to merge amenity with the same name but with different category and update this relationship
+          hotel.amenities << Amenity.find_or_create_by(category: key, name: value)
+        end
+      end
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error(e.message)
     end

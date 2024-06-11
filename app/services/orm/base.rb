@@ -31,6 +31,12 @@ module Orm
       }
     end
 
+    def amenities_attributes
+      amenities.transform_values! do |values|
+        values.map { |value| to_readable(sanitize(value)) }
+      end
+    end
+
     def hotel_id
       raise NotImplementedError, "Subclass must implement the `hotel_id` method"
     end
@@ -71,6 +77,10 @@ module Orm
       raise NotImplementedError, "Subclass must implement the `zipcode` method"
     end
 
+    def amenities
+      raise NotImplementedError, "Subclass must implement the `amenities` method"
+    end
+
     private
 
     def sanitize(value)
@@ -79,7 +89,8 @@ module Orm
       value.strip.chomp(',')
     end
 
-    def geocoded_address
+    def to_readable(string)
+      string.to_s.split(/(?=[A-Z])/).join(' ').downcase
     end
   end
 end

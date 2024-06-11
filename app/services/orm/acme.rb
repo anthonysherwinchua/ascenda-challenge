@@ -39,5 +39,11 @@ module Orm
     def zipcode
       original_attributes["PostalCode"]
     end
+
+    def amenities
+      {
+        uncategorized: original_attributes["Facilities"] || []
+      }
+    end
   end
 end
