@@ -12,3 +12,8 @@ The project expects following tools installed on the system.
 ```bash
 git clone https://github.com/anthonysherwinchua/ascenda-challenge
 ```
+
+##### 2. Setup rails secret
+
+  - create a `.env` file
+  - add the key `RAILS_MASTER_KEY`. The value will be shared separately for security purposes
