@@ -6,18 +6,27 @@ class HotelsPresenter
   end
 
   def call
-    @hotels = Hotel.includes(:location, :amenities)
-    @hotels = @hotels.where("name ILIKE ?", search_term) if search_term
-    @hotels = @hotels.where("hotel_id = ?", hotel_id) if hotel_id
-    @hotels = @hotels.where("destination_id = ?", destination_id) if destination_id
-    @hotels = @hotels.page(page).per(per)
+    # NOTE: currently using Memory Store
+    # alternatives: Redis, Memcache, FileStore, or Database Store
+    Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
+      @hotels = Hotel.includes(:location, :amenities)
+      @hotels = @hotels.where("name ILIKE ?", search_term) if search_term
+      @hotels = @hotels.where("hotel_id = ?", hotel_id) if hotel_id
+      @hotels = @hotels.where("destination_id = ?", destination_id) if destination_id
+      @hotels = @hotels.page(page).per(per)
 
-    @hotels.map do |hotel|
-      HotelDecorator.new(hotel)
+      @hotels.map do |hotel|
+        HotelDecorator.new(hotel)
+      end
     end
   end
 
   private
+
+  def cache_key
+    json_string = JSON.generate(params)
+    Digest::SHA256.hexdigest(json_string)
+  end
 
   def search_term
     @search_term ||= "%#{params[:search]}%"
