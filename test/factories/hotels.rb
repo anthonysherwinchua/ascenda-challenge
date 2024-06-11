@@ -1,7 +1,9 @@
 FactoryBot.define do
   factory :hotel do
-    hotel_id { "MyString" }
-    destination_id { 1 }
-    name { "MyString" }
+    location { create(:location) }
+
+    hotel_id { Faker::Alphanumeric.alphanumeric(number: 4) }
+    destination_id { Faker::Number.number(digits: 4) }
+    name { Faker::Restaurant.name }
   end
 end

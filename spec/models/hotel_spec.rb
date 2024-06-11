@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Hotel, type: :model do
+  describe "associations" do
+    it { is_expected.to(belong_to(:location))}
+  end
+
   describe "validations" do
     it { is_expected.to(validate_presence_of(:hotel_id)) }
     it { is_expected.to(validate_presence_of(:destination_id)) }
