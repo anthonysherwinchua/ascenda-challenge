@@ -34,13 +34,13 @@ module Orm
     end
 
     def amenities_attributes
-      amenities.transform_values! do |values|
-        values.map { |value| to_readable(sanitize(value)) }
+      amenities&.transform_values! do |values|
+        values&.map { |value| to_readable(sanitize(value)) }
       end
     end
 
     def sanitized_booking_conditions
-      booking_conditions.map do |condition|
+      booking_conditions&.map do |condition|
         sanitize(condition)
       end
     end

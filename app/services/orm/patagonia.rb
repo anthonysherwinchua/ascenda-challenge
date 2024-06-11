@@ -55,7 +55,7 @@ module Orm
 
     def amenities
       {
-        uncategorized: original_attributes["amenities"] || []
+        general: original_attributes["amenities"] || []
       }
     end
   end
