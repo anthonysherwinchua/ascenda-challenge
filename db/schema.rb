@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_11_040302) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_11_051824) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "amenities", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "category", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "category"], name: "index_amenities_on_name_and_category", unique: true
+  end
 
   create_table "hotels", force: :cascade do |t|
     t.string "hotel_id", null: false
