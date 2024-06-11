@@ -2,17 +2,17 @@ class HotelsPresenter
   attr_reader :hotels, :params
 
   def initialize(params = {})
-    @hotels = Hotel.includes(:location, :amenities)
     @params = params
   end
 
   def call
-    hotels = hotels.where("name ILIKE ?", search_term) if search_term
-    hotels = hotels.where("hotel_id = ?", hotel_id) if hotel_id
-    hotels = hotels.where("destination_id = ?", destination_id) if destination_id
-    hotels = hotels.page(page).per(per)
+    @hotels = Hotel.includes(:location, :amenities)
+    @hotels = @hotels.where("name ILIKE ?", search_term) if search_term
+    @hotels = @hotels.where("hotel_id = ?", hotel_id) if hotel_id
+    @hotels = @hotels.where("destination_id = ?", destination_id) if destination_id
+    @hotels = @hotels.page(page).per(per)
 
-    hotels.map do |hotel|
+    @hotels.map do |hotel|
       HotelDecorator.new(hotel)
     end
   end
