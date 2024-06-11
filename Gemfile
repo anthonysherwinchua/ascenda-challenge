@@ -47,4 +47,7 @@ group :test do
 
   # Use JSON Matcher to validate the JSON returned by your Rails JSON APIs
   gem 'json_matchers'
+
+  # Use Faker to generate random data
+  gem 'faker'
 end
