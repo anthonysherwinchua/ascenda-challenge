@@ -36,4 +36,15 @@ group :development do
 end
 
 group :test do
+  # Use Rspec to test
+  gem 'rspec-rails', '~> 6.0.0'
+
+  # Use FactoryBot to replace fixtures
+  gem 'factory_bot_rails', '~> 6.2'
+
+  # Use Shoulda Matchers for one-liners to test common Rails functionality
+  gem 'shoulda-matchers', '~> 5.0'
+
+  # Use JSON Matcher to validate the JSON returned by your Rails JSON APIs
+  gem 'json_matchers'
 end
