@@ -17,3 +17,8 @@ git clone https://github.com/anthonysherwinchua/ascenda-challenge
 
   - create a `.env` file
   - add the key `RAILS_MASTER_KEY`. The value will be shared separately for security purposes
+
+##### 3. Update database password
+
+  - rails credentials:edit
+  - update the `db` > `password`
