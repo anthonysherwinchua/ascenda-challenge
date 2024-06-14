@@ -95,7 +95,11 @@ ORMs can be found in `app/services/orm/`
 [Back to top](#links)
 
 # Selecting the best data
-after `HotelData` receives the hash, it will use the matchers. The matchers determines the best data possible for each field. e.g. Name is determined by longest string. It also combines array and hashes together and removes blank data. e.g. images, and booking_conditions
+after `HotelData` receives the hash, it will use the matchers. The matchers determines the best data possible for each field.
+Examples:
+- Name is determined by longest string. If the name has the same length, take the value from the new attribute
+- Latitude, and Longitude are determined by number with longer precision
+- Combines Images (hashes) and booking conditions (array) together and removes blank data
 
 The matchers can be found in `app/services/matchers`
 
