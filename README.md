@@ -23,8 +23,12 @@ git clone https://github.com/anthonysherwinchua/ascenda-challenge
 
 ##### 2. Setup rails secret
 
-  - create a `.env` file
-  - add the key `RAILS_MASTER_KEY`. The value will be shared separately for security purposes
+- copy the content (minus the auto-generated secret_key_base) of `config/credentials.yml.sample` and paste it in the next command
+- Run the following command in the terminal
+```
+EDITOR=vim rails credentials:edit
+```
+- update the database password
 
 ##### 3. Update database password
 
@@ -34,7 +38,7 @@ git clone https://github.com/anthonysherwinchua/ascenda-challenge
   note: update the file `config/database.yml` according to your postgres setup
 
 ##### 4. Run the usual Rails command
-Setup your ruby version and gemset with your preferred ruby and gem manager
+Setup ruby version and gemset with your preferred ruby and gem manager
 
 ```
   bundle install
