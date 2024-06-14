@@ -20,6 +20,6 @@ class HotelDecorator < SimpleDelegator
   end
 
   def amenities
-    super.group_by(&:category).except("uncategorized").transform_values { |amenities| amenities.map(&:name) }
+    super.group_by(&:category).transform_values { |amenities| amenities.map(&:name) }
   end
 end
