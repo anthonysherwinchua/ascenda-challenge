@@ -33,13 +33,11 @@ class HotelsPresenter
   end
 
   def hotel_ids
-    @hotel_id ||= params[:hotel_ids]
+    @hotel_ids ||= params[:hotels]
   end
 
   def destination_id
-    return nil if params[:destination].to_i == "0"
-
-    @destination_id ||= params[:destination_id].to_i
+    @destination_id ||= (Integer(params[:destination]) rescue nil)
   end
 
   def page

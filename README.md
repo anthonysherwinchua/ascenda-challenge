@@ -117,10 +117,10 @@ http://localhost:3000/api/hotels
 ### what filters can be used?
 Here are the (AND) filters that can be used:
 - `search` - A string to search the hotel name. e.g. "Beach Villas", "InterContinental", "Shinjuku"
-- `hotel_ids` - Array of hotel_ids. e.g. "iJhz", "SjyX", "f8c9"
-- `destination_id` - A destination_id. e.g. 5432, 1122
+- `hotels` - Array of hotel_ids. e.g. "iJhz", "SjyX", "f8c9"
+- `destination` - A destination_id. e.g. 5432, 1122
 - `page` - Page. defaults to 1
-- `per` - Records per page. defaults to
+- `per` - Records per page. defaults to 5
 
 ### about the code
 `HotelPresenter` can be found in `app/presenters/hotels_presenter.rb`
