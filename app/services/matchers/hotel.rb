@@ -22,15 +22,15 @@ module Matchers
 
     def name
       longest_string([
-        hotel.name,
-        new_attributes[:name]
+        new_attributes[:name],
+        hotel.name
       ])
     end
 
     def description
       longest_string([
-        hotel.description,
-        new_attributes[:description]
+        new_attributes[:description],
+        hotel.description
       ])
     end
 

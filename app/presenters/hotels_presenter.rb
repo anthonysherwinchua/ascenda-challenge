@@ -33,7 +33,7 @@ class HotelsPresenter
   end
 
   def hotel_ids
-    @hotel_ids ||= params[:hotels]
+    @hotel_ids ||= params[:hotels].presence
   end
 
   def destination_id

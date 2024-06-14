@@ -24,43 +24,43 @@ module Matchers
 
     def latitude
       more_detailed_float(
-        location&.latitude,
-        new_attributes[:latitude]
+        new_attributes[:latitude],
+        location&.latitude
       )
     end
 
     def longitude
       more_detailed_float(
-        location&.longitude,
-        new_attributes[:longitude]
+        new_attributes[:longitude],
+        location&.longitude
       )
     end
 
     def address
       longest_string([
-        location&.address,
-        new_attributes[:address]
+        new_attributes[:address],
+        location&.address
       ])
     end
 
     def city
       longest_string([
-        location&.city,
-        new_attributes[:city]
+        new_attributes[:city],
+        location&.city
       ])
     end
 
     def country
       longest_string([
-        location&.country,
-        new_attributes[:country]
+        new_attributes[:country],
+        location&.country
       ])
     end
 
     def zipcode
       longest_string([
-        location&.zipcode,
-        new_attributes[:zipcode]
+        new_attributes[:zipcode],
+        location&.zipcode
       ])
     end
   end

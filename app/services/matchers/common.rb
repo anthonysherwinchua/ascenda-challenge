@@ -3,7 +3,9 @@ module Matchers
     def longest_string(strings)
       strings = strings.compact.uniq
 
-      return strings.first if strings.any? { |string| !string.is_a?(String) }
+      strings = strings.select { |string| string.is_a?(String) }
+      return nil if strings.count.zero?
+      return strings.first if strings.count == 1
 
       strings.max_by(&:length)
     end
@@ -47,7 +49,7 @@ module Matchers
         values.uniq
       end
 
-      merged_hash
+      merged_hash.with_indifferent_access
     end
 
     def combine_array(array1, array2)
