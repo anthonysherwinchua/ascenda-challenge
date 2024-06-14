@@ -11,7 +11,7 @@ class HotelsPresenter
     Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
       @hotels = Hotel.includes(:location, :amenities)
       @hotels = @hotels.where("name ILIKE ?", search_term) if search_term
-      @hotels = @hotels.where("hotel_id = ?", hotel_id) if hotel_id
+      @hotels = @hotels.where("hotel_id in (?)", hotel_ids) if hotel_ids
       @hotels = @hotels.where("destination_id = ?", destination_id) if destination_id
       @hotels = @hotels.page(page).per(per)
 
@@ -32,12 +32,14 @@ class HotelsPresenter
     @search_term ||= "%#{params[:search]}%"
   end
 
-  def hotel_id
-    @hotel_id ||= params[:id]
+  def hotel_ids
+    @hotel_id ||= params[:hotel_ids]
   end
 
   def destination_id
-    @destination_id ||= params[:destination_id]
+    return nil if params[:destination].to_i == "0"
+
+    @destination_id ||= params[:destination_id].to_i
   end
 
   def page
