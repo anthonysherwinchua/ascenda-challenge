@@ -41,8 +41,7 @@ module Orm
 
     def address
       tmp = original_attributes["address"]
-      tmp.gsub(zipcode, '') if tmp && zipcode
-      tmp
+      tmp && zipcode ? tmp.gsub(zipcode, '') : tmp
     end
 
     def city; end

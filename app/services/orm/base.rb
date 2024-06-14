@@ -3,7 +3,7 @@ module Orm
     attr_reader :original_attributes
 
     def initialize(original_attributes)
-      @original_attributes = original_attributes
+      @original_attributes = original_attributes.try(:with_indifferent_access) || {}
     end
 
     def main_attributes
@@ -36,7 +36,7 @@ module Orm
     def amenities_attributes
       amenities&.transform_values! do |values|
         values&.map { |value| to_readable(sanitize(value)) }
-      end
+      end&.stringify_keys
     end
 
     def sanitized_booking_conditions
