@@ -3,6 +3,10 @@ class HotelDecorator < SimpleDelegator
     hotel_id
   end
 
+  def name
+    super.titleize
+  end
+
   def location
     LocationDecorator.new(super).as_json(
       only: [
