@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_054750) do
   create_table "hotels", force: :cascade do |t|
     t.string "hotel_id", null: false
     t.integer "destination_id", null: false
-    t.string "name", null: false
+    t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -46,10 +46,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_054750) do
   create_table "locations", force: :cascade do |t|
     t.float "latitude"
     t.float "longitude"
-    t.string "address", null: false
+    t.string "address"
     t.string "city"
-    t.string "country", null: false
-    t.string "zipcode", null: false
+    t.string "country"
+    t.string "zipcode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
