@@ -11,17 +11,21 @@ class HotelData
     @supplier = Supplier.find_by(id: supplier_id)
   end
 
-  def call
+  def call(job_id)
     return "ORM not found for #{supplier&.name}" unless orm
 
+    supplier.update(scrape_job_id: job_id, scrape_status: :started)
+
     data.each do |attributes|
-      save(attributes)
+      orm_instance = orm.new(attributes)
+
+      save(orm_instance, job_id) unless orm_instance.delete?
     end
+
+    supplier.update(scrape_job_id: job_id, scrape_status: :completed)
   end
 
-  def save(attributes)
-    orm_instance = orm.new(attributes)
-
+  def save(orm_instance, job_id)
     ActiveRecord::Base.transaction do
       hotel = Hotel.find_or_initialize_by(orm_instance.main_attributes)
 
@@ -33,7 +37,8 @@ class HotelData
       end
 
       new_hotel_attributes = Matchers::Hotel.new(hotel, orm_instance.attributes).attributes.merge(
-        scraped_at: Time.current
+        scraped_at: Time.current,
+        scrape_job_id: job_id
       )
 
       hotel.update!(new_hotel_attributes)

@@ -251,6 +251,6 @@ RSpec.describe Orm::Patagonia do
   end
 
   describe "#delete?" do
-    it { expect(subject.delete?).to be_false }
+    it { expect(subject.delete?).to eq(false) }
   end
 end

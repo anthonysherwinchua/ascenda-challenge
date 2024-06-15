@@ -3,6 +3,7 @@
 - [Merge Data](#merge-data)
 - [Parse and Clean Data](#parse-and-clean-data)
 - [Selecting the best data](#selecting-the-best-data)
+- [Removing data](#removing-data)
 - [API Endpoint](#api-endpoint)
 
 # Project Setup
@@ -102,6 +103,15 @@ Examples:
 - Combines Images (hashes) and booking conditions (array) together and removes blank data
 
 The matchers can be found in `app/services/matchers`
+
+[Back to top](#links)
+
+# Removing data
+A scheduled `HotelDataCleanerJob` runs every minute. It does the following:
+- checks if any supplier is in `started` state. This indicates there is an ongoing scraping
+- when all supplier is in `completed` state, it deletes all `Hotel` which doesn't match any of the supplier's job_id
+
+The scheduler can be found in config/sidekiq.yml
 
 [Back to top](#links)
 

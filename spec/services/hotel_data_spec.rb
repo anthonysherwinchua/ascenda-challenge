@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe HotelData, type: :model do
   let(:supplier) { create(:supplier, name: 'patagonia', url: 'http://example.com/data') }
   let(:supplier_id) { supplier.id }
+  let(:job_id) { SecureRandom.hex }
   let(:response_body) do
     [
       {
@@ -84,10 +85,22 @@ RSpec.describe HotelData, type: :model do
 
   describe '#call' do
     context 'when ORM is found' do
-      it 'processes and saves hotel data' do
-        expect { subject.call }.to change { Hotel.count }.by(2)
-        expect(Hotel.first.scraped_at).to be_within(1.second).of(Time.current)
-        expect(Hotel.second.scraped_at).to be_within(1.second).of(Time.current)
+      describe "delete? is false" do
+        it 'processes and saves hotel data' do
+          expect { subject.call(job_id) }.to change { Hotel.count }.by(2)
+          expect(Hotel.first.scraped_at).to be_within(1.second).of(Time.current)
+          expect(Hotel.second.scraped_at).to be_within(1.second).of(Time.current)
+        end
+      end
+
+      describe "delete? is true" do
+        before do
+          orm_dbl = double(Orm::Patagonia)
+          allow(Orm::Patagonia).to receive(:new).and_return(orm_dbl)
+          allow(orm_dbl).to receive(:delete?).and_return(true)
+        end
+
+        it { expect { subject.call(job_id) }.to_not change { Hotel.count } }
       end
     end
 
@@ -97,7 +110,7 @@ RSpec.describe HotelData, type: :model do
       end
 
       it 'returns ORM not found message' do
-        expect(subject.call).to eq("ORM not found for unknown_supplier")
+        expect(subject.call(job_id)).to eq("ORM not found for unknown_supplier")
       end
     end
 
@@ -107,27 +120,28 @@ RSpec.describe HotelData, type: :model do
       end
 
       it 'does not raise an error' do
-        expect { subject.call }.not_to raise_error
+        expect { subject.call(job_id) }.not_to raise_error
       end
     end
   end
 
   describe '#save' do
     let(:attributes) { JSON.parse(response_body).first }
+    let(:orm_instance) { Orm::Patagonia.new(attributes) }
 
     it 'saves hotel data' do
-      expect { subject.save(attributes) }.to change { Hotel.count }.by(1)
+      expect { subject.save(orm_instance, job_id) }.to change { Hotel.count }.by(1)
     end
 
     it 'updates location data' do
       hotel = create(:hotel, hotel_id: attributes["id"], destination_id: attributes["destination"])
       location = create(:location, hotel: hotel, address: 'old address')
 
-      expect { subject.save(attributes) }.to change { location.reload.address }.to("8 Sentosa Gateway, Beach Villas")
+      expect { subject.save(orm_instance, job_id) }.to change { location.reload.address }.to("8 Sentosa Gateway, Beach Villas")
     end
 
     it 'creates new amenities' do
-      expect { subject.save(attributes) }.to change { Amenity.count }.by(7)
+      expect { subject.save(orm_instance, job_id) }.to change { Amenity.count }.by(7)
     end
   end
 end

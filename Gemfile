@@ -26,6 +26,7 @@ gem "bootsnap", require: false
 gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
 
 gem "sidekiq", "~> 7.2"
+gem "sidekiq-scheduler"
 
 gem "after_party"
 

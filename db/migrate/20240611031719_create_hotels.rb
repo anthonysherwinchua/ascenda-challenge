@@ -6,6 +6,7 @@ class CreateHotels < ActiveRecord::Migration[7.1]
       t.string :name
       t.text :description
       t.datetime :scraped_at
+      t.string :scrape_job_id
       t.timestamps
     end
 

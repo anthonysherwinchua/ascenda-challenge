@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_15_034322) do
     t.string "name"
     t.text "description"
     t.datetime "scraped_at"
+    t.string "scrape_job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "location_id", null: false
@@ -60,6 +61,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_15_034322) do
   create_table "suppliers", force: :cascade do |t|
     t.string "name"
     t.string "url"
+    t.string "scrape_job_id"
+    t.integer "scrape_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

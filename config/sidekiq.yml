@@ -1,0 +1,11 @@
+:concurrency: 3
+:timeout: 60
+:verbose: true
+:queues:
+  - default
+
+:scheduler:
+  :schedule:
+    hotel_data_cleaner_job:
+      cron: '5/60 * * * * *'
+      class: HotelDataCleanerJob
