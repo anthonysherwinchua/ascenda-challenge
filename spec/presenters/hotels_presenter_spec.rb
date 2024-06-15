@@ -71,4 +71,18 @@ RSpec.describe HotelsPresenter do
       it { expect(subject.map(&:id)).to(match_array(["def"]))}
     end
   end
+
+  context "params with combination of hotels and destination" do
+    describe "combination exists" do
+      let(:params) { { hotels: ["def"], destination: 456 } }
+
+      it { expect(subject.map(&:id)).to(match_array(["def"]))}
+    end
+
+    describe "combination does not exists" do
+      let(:params) { { hotels: ["abc"], destination: 456 } }
+
+      it { expect(subject).to(be_empty)}
+    end
+  end
 end
