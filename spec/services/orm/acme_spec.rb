@@ -152,4 +152,8 @@ RSpec.describe Orm::Acme do
       end
     end
   end
+
+  describe "#delete?" do
+    it { expect(subject.delete?).to be_false }
+  end
 end

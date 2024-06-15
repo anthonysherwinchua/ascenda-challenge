@@ -49,5 +49,9 @@ module Orm
         general: original_attributes["Facilities"] || []
       }
     end
+
+    def delete?
+      false
+    end
   end
 end

@@ -57,5 +57,9 @@ module Orm
         general: original_attributes["amenities"] || []
       }
     end
+
+    def delete?
+      false
+    end
   end
 end

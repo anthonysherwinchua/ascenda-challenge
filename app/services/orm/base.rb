@@ -45,6 +45,10 @@ module Orm
       end
     end
 
+    def delete?
+      raise NotImplementedError, "Subclass must implement the `hotel_id` method"
+    end
+
     def hotel_id
       raise NotImplementedError, "Subclass must implement the `hotel_id` method"
     end

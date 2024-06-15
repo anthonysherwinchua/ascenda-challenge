@@ -56,5 +56,9 @@ module Orm
     def amenities
       original_attributes["amenities"] || []
     end
+
+    def delete?
+      false
+    end
   end
 end
