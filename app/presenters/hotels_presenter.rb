@@ -13,7 +13,7 @@ class HotelsPresenter
       @hotels = @hotels.where("name ILIKE ?", search_term) if search_term
       @hotels = @hotels.where("hotel_id in (?)", hotel_ids) if hotel_ids
       @hotels = @hotels.where("destination_id = ?", destination_id) if destination_id
-      @hotels = @hotels.page(page).per(per)
+      @hotels = @hotels.order(name: :asc).page(page).per(per)
 
       @hotels.map do |hotel|
         HotelDecorator.new(hotel)
