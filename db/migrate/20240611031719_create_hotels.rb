@@ -5,6 +5,7 @@ class CreateHotels < ActiveRecord::Migration[7.1]
       t.integer :destination_id, null: false
       t.string :name
       t.text :description
+      t.datetime :scraped_at
       t.timestamps
     end
 

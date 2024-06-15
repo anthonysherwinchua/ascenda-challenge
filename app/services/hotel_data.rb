@@ -32,9 +32,11 @@ class HotelData
         hotel.location = Location.create!(location_attributes)
       end
 
-      hotel.update!(
-        Matchers::Hotel.new(hotel, orm_instance.attributes).attributes
+      new_hotel_attributes = Matchers::Hotel.new(hotel, orm_instance.attributes).attributes.merge(
+        scraped_at: Time.current
       )
+
+      hotel.update!(new_hotel_attributes)
 
       orm_instance.amenities_attributes.each do |key, values|
         values.each do |value|

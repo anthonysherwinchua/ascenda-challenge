@@ -34,6 +34,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_054750) do
     t.integer "destination_id", null: false
     t.string "name"
     t.text "description"
+    t.datetime "scraped_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "location_id", null: false

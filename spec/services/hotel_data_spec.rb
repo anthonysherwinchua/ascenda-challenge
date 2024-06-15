@@ -86,6 +86,8 @@ RSpec.describe HotelData, type: :model do
     context 'when ORM is found' do
       it 'processes and saves hotel data' do
         expect { subject.call }.to change { Hotel.count }.by(2)
+        expect(Hotel.first.scraped_at).to be_within(1.second).of(Time.current)
+        expect(Hotel.second.scraped_at).to be_within(1.second).of(Time.current)
       end
     end
 
