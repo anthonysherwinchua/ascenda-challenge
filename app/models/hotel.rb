@@ -1,4 +1,6 @@
 class Hotel < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :location
   has_and_belongs_to_many :amenities
 
