@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe HotelDataCleaner, type: :model do
-  context "all suppliers are in completed state" do
+  context 'all suppliers are in completed state' do
     before do
       create(:hotel, scrape_job_id: nil)
       create(:hotel, scrape_job_id: SecureRandom.hex)
@@ -19,7 +19,7 @@ RSpec.describe HotelDataCleaner, type: :model do
     it { expect { HotelDataCleaner.call }.to change { Hotel.count }.by(-2) }
   end
 
-  context "there is a supplier that is still in started scrape state" do
+  context 'there is a supplier that is still in started scrape state' do
     let(:scrape_job_ids) do
       [
         SecureRandom.hex
@@ -32,6 +32,6 @@ RSpec.describe HotelDataCleaner, type: :model do
       create(:hotel, scrape_job_id: scrape_job_ids)
     end
 
-    it { expect { HotelDataCleaner.call }.not_to change { Hotel.count } }
+    it { expect { HotelDataCleaner.call }.not_to(change { Hotel.count }) }
   end
 end

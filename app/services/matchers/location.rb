@@ -38,30 +38,30 @@ module Matchers
 
     def address
       longest_string([
-        new_attributes[:address],
-        location&.address
-      ])
+                       new_attributes[:address],
+                       location&.address
+                     ])
     end
 
     def city
       longest_string([
-        new_attributes[:city],
-        location&.city
-      ])
+                       new_attributes[:city],
+                       location&.city
+                     ])
     end
 
     def country
       longest_string([
-        new_attributes[:country],
-        location&.country
-      ])
+                       new_attributes[:country],
+                       location&.country
+                     ])
     end
 
     def zipcode
       longest_string([
-        new_attributes[:zipcode],
-        location&.zipcode
-      ])
+                       new_attributes[:zipcode],
+                       location&.zipcode
+                     ])
     end
   end
 end

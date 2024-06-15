@@ -66,9 +66,9 @@ class HotelData
 
   def data
     @data ||= JSON.parse(response.body)
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("Invalid response: #{e.message}")
 
-    { error: "failed to parse response" }
+    { error: 'failed to parse response' }
   end
 end

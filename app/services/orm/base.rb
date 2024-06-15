@@ -46,59 +46,59 @@ module Orm
     end
 
     def delete?
-      raise NotImplementedError, "Subclass must implement the `hotel_id` method"
+      raise NotImplementedError, 'Subclass must implement the `hotel_id` method'
     end
 
     def hotel_id
-      raise NotImplementedError, "Subclass must implement the `hotel_id` method"
+      raise NotImplementedError, 'Subclass must implement the `hotel_id` method'
     end
 
     def destination_id
-      raise NotImplementedError, "Subclass must implement the `destination_id` method"
+      raise NotImplementedError, 'Subclass must implement the `destination_id` method'
     end
 
     def name
-      raise NotImplementedError, "Subclass must implement the `name` method"
+      raise NotImplementedError, 'Subclass must implement the `name` method'
     end
 
     def description
-      raise NotImplementedError, "Subclass must implement the `description` method"
+      raise NotImplementedError, 'Subclass must implement the `description` method'
     end
 
     def images
-      raise NotImplementedError, "Subclass must implement the `images` method"
+      raise NotImplementedError, 'Subclass must implement the `images` method'
     end
 
     def booking_conditions
-      raise NotImplementedError, "Subclass must implement the `booking_conditions` method"
+      raise NotImplementedError, 'Subclass must implement the `booking_conditions` method'
     end
 
     def latitude
-      raise NotImplementedError, "Subclass must implement the `latitude` method"
+      raise NotImplementedError, 'Subclass must implement the `latitude` method'
     end
 
     def longitude
-      raise NotImplementedError, "Subclass must implement the `longitude` method"
+      raise NotImplementedError, 'Subclass must implement the `longitude` method'
     end
 
     def address
-      raise NotImplementedError, "Subclass must implement the `address` method"
+      raise NotImplementedError, 'Subclass must implement the `address` method'
     end
 
     def city
-      raise NotImplementedError, "Subclass must implement the `city` method"
+      raise NotImplementedError, 'Subclass must implement the `city` method'
     end
 
     def country
-      raise NotImplementedError, "Subclass must implement the `country` method"
+      raise NotImplementedError, 'Subclass must implement the `country` method'
     end
 
     def zipcode
-      raise NotImplementedError, "Subclass must implement the `zipcode` method"
+      raise NotImplementedError, 'Subclass must implement the `zipcode` method'
     end
 
     def amenities
-      raise NotImplementedError, "Subclass must implement the `amenities` method"
+      raise NotImplementedError, 'Subclass must implement the `amenities` method'
     end
 
     private

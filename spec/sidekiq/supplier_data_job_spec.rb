@@ -12,7 +12,7 @@ RSpec.describe SupplierDataJob, type: :job do
         expect(HotelDataJob).to receive(:perform_async).with(supplier1.id).and_call_original
         expect(HotelDataJob).to receive(:perform_async).with(supplier2.id).and_call_original
 
-        described_class.new.perform(['Acme', 'Patagonia'])
+        described_class.new.perform(%w[Acme Patagonia])
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe SupplierDataJob, type: :job do
         expect(HotelDataJob).to receive(:perform_async).with(supplier1.id).and_call_original
         expect(HotelDataJob).to receive(:perform_async).with(supplier2.id).and_call_original
 
-      described_class.new.perform(['NonExistentSupplier'])
+        described_class.new.perform(['NonExistentSupplier'])
       end
     end
   end

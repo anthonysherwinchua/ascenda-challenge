@@ -9,12 +9,12 @@ class HotelDecorator < SimpleDelegator
 
   def location
     LocationDecorator.new(super).as_json(
-      only: [
-        :lat,
-        :lng,
-        :address,
-        :city,
-        :country
+      only: %i[
+        lat
+        lng
+        address
+        city
+        country
       ]
     )
   end

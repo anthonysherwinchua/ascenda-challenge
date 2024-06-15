@@ -7,6 +7,6 @@ class CreateAmenities < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    add_index :amenities, [:name, :category], unique: true
+    add_index :amenities, %i[name category], unique: true
   end
 end

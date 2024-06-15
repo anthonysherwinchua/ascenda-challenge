@@ -3,27 +3,27 @@ module Orm
     include Orm::Parsers::Zipcode
 
     def hotel_id
-      original_attributes["id"]
+      original_attributes['id']
     end
 
     def destination_id
-      original_attributes["destination"]
+      original_attributes['destination']
     end
 
     def name
-      original_attributes["name"]
+      original_attributes['name']
     end
 
     def description
-      original_attributes["info"]
+      original_attributes['info']
     end
 
     def images
-      original_attributes["images"]&.transform_values! do |values|
+      original_attributes['images']&.transform_values! do |values|
         values.map do |value|
           {
-            link: value["url"],
-            description: value["description"]
+            link: value['url'],
+            description: value['description']
           }
         end
       end
@@ -32,15 +32,15 @@ module Orm
     def booking_conditions; end
 
     def latitude
-      original_attributes["lat"]
+      original_attributes['lat']
     end
 
     def longitude
-      original_attributes["lng"]
+      original_attributes['lng']
     end
 
     def address
-      tmp = original_attributes["address"]
+      tmp = original_attributes['address']
       tmp && zipcode ? tmp.gsub(zipcode, '') : tmp
     end
 
@@ -49,12 +49,12 @@ module Orm
     def country; end
 
     def zipcode
-      zipcode_from(original_attributes["address"])
+      zipcode_from(original_attributes['address'])
     end
 
     def amenities
       {
-        general: original_attributes["amenities"] || []
+        general: original_attributes['amenities'] || []
       }
     end
 

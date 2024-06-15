@@ -1,7 +1,7 @@
 class SupplierDataJob
   include Sidekiq::Job
 
-  def perform(supplier_names=[])
+  def perform(supplier_names = [])
     supplier_ids_from(supplier_names).map do |supplier_id|
       HotelDataJob.perform_async(supplier_id)
     end

@@ -1,3 +1,3 @@
-require "json_matchers/rspec"
+require 'json_matchers/rspec'
 
-JsonMatchers.schema_root = "spec/api/schemas"
+JsonMatchers.schema_root = 'spec/api/schemas'

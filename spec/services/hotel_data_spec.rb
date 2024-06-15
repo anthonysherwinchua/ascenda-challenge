@@ -7,49 +7,49 @@ RSpec.describe HotelData, type: :model do
   let(:response_body) do
     [
       {
-        "id": "iJhz",
+        "id": 'iJhz',
         "destination": 5432,
-        "name": "Beach Villas Singapore",
+        "name": 'Beach Villas Singapore',
         "lat": 1.264751,
         "lng": 103.824006,
-        "address": "8 Sentosa Gateway, Beach Villas, 098269",
-        "info": "Located at the western tip of Resorts World Sentosa, guests at the Beach Villas are guaranteed privacy while they enjoy spectacular views of glittering waters. Guests will find themselves in paradise with this series of exquisite tropical sanctuaries, making it the perfect setting for an idyllic retreat. Within each villa, guests will discover living areas and bedrooms that open out to mini gardens, private timber sundecks and verandahs elegantly framing either lush greenery or an expanse of sea. Guests are assured of a superior slumber with goose feather pillows and luxe mattresses paired with 400 thread count Egyptian cotton bed linen, tastefully paired with a full complement of luxurious in-room amenities and bathrooms boasting rain showers and free-standing tubs coupled with an exclusive array of ESPA amenities and toiletries. Guests also get to enjoy complimentary day access to the facilities at Asia’s flagship spa – the world-renowned ESPA.",
+        "address": '8 Sentosa Gateway, Beach Villas, 098269',
+        "info": 'Located at the western tip of Resorts World Sentosa, guests at the Beach Villas are guaranteed privacy while they enjoy spectacular views of glittering waters. Guests will find themselves in paradise with this series of exquisite tropical sanctuaries, making it the perfect setting for an idyllic retreat. Within each villa, guests will discover living areas and bedrooms that open out to mini gardens, private timber sundecks and verandahs elegantly framing either lush greenery or an expanse of sea. Guests are assured of a superior slumber with goose feather pillows and luxe mattresses paired with 400 thread count Egyptian cotton bed linen, tastefully paired with a full complement of luxurious in-room amenities and bathrooms boasting rain showers and free-standing tubs coupled with an exclusive array of ESPA amenities and toiletries. Guests also get to enjoy complimentary day access to the facilities at Asia’s flagship spa – the world-renowned ESPA.',
         "amenities": [
-          "Aircon",
-          "Tv",
-          "Coffee machine",
-          "Kettle",
-          "Hair dryer",
-          "Iron",
-          "Tub"
+          'Aircon',
+          'Tv',
+          'Coffee machine',
+          'Kettle',
+          'Hair dryer',
+          'Iron',
+          'Tub'
         ],
         "images": {
           "rooms": [
             {
-              "url": "https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/2.jpg",
-              "description": "Double room"
+              "url": 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/2.jpg',
+              "description": 'Double room'
             },
             {
-              "url": "https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/4.jpg",
-              "description": "Bathroom"
+              "url": 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/4.jpg',
+              "description": 'Bathroom'
             }
           ],
           "amenities": [
             {
-              "url": "https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/0.jpg",
-              "description": "RWS"
+              "url": 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/0.jpg',
+              "description": 'RWS'
             },
             {
-              "url": "https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/6.jpg",
-              "description": "Sentosa Gateway"
+              "url": 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/6.jpg',
+              "description": 'Sentosa Gateway'
             }
           ]
         }
       },
       {
-        "id": "f8c9",
+        "id": 'f8c9',
         "destination": 1122,
-        "name": "Hilton Tokyo Shinjuku",
+        "name": 'Hilton Tokyo Shinjuku',
         "lat": 35.6926,
         "lng": 139.690965,
         "address": nil,
@@ -58,18 +58,18 @@ RSpec.describe HotelData, type: :model do
         "images": {
           "rooms": [
             {
-              "url": "https://d2ey9sqrvkqdfs.cloudfront.net/YwAr/i10_m.jpg",
-              "description": "Suite"
+              "url": 'https://d2ey9sqrvkqdfs.cloudfront.net/YwAr/i10_m.jpg',
+              "description": 'Suite'
             },
             {
-              "url": "https://d2ey9sqrvkqdfs.cloudfront.net/YwAr/i11_m.jpg",
-              "description": "Suite - Living room"
+              "url": 'https://d2ey9sqrvkqdfs.cloudfront.net/YwAr/i11_m.jpg',
+              "description": 'Suite - Living room'
             }
           ],
           "amenities": [
             {
-              "url": "https://d2ey9sqrvkqdfs.cloudfront.net/YwAr/i57_m.jpg",
-              "description": "Bar"
+              "url": 'https://d2ey9sqrvkqdfs.cloudfront.net/YwAr/i57_m.jpg',
+              "description": 'Bar'
             }
           ]
         }
@@ -85,7 +85,7 @@ RSpec.describe HotelData, type: :model do
 
   describe '#call' do
     context 'when ORM is found' do
-      describe "delete? is false" do
+      describe 'delete? is false' do
         it 'processes and saves hotel data' do
           expect { subject.call(job_id) }.to change { Hotel.count }.by(2)
           expect(Hotel.first.scraped_at).to be_within(1.second).of(Time.current)
@@ -93,14 +93,14 @@ RSpec.describe HotelData, type: :model do
         end
       end
 
-      describe "delete? is true" do
+      describe 'delete? is true' do
         before do
           orm_dbl = double(Orm::Patagonia)
           allow(Orm::Patagonia).to receive(:new).and_return(orm_dbl)
           allow(orm_dbl).to receive(:delete?).and_return(true)
         end
 
-        it { expect { subject.call(job_id) }.to_not change { Hotel.count } }
+        it { expect { subject.call(job_id) }.to_not(change { Hotel.count }) }
       end
     end
 
@@ -110,7 +110,7 @@ RSpec.describe HotelData, type: :model do
       end
 
       it 'returns ORM not found message' do
-        expect(subject.call(job_id)).to eq("ORM not found for unknown_supplier")
+        expect(subject.call(job_id)).to eq('ORM not found for unknown_supplier')
       end
     end
 
@@ -134,10 +134,12 @@ RSpec.describe HotelData, type: :model do
     end
 
     it 'updates location data' do
-      hotel = create(:hotel, hotel_id: attributes["id"], destination_id: attributes["destination"])
+      hotel = create(:hotel, hotel_id: attributes['id'], destination_id: attributes['destination'])
       location = create(:location, hotel: hotel, address: 'old address')
 
-      expect { subject.save(orm_instance, job_id) }.to change { location.reload.address }.to("8 Sentosa Gateway, Beach Villas")
+      expect { subject.save(orm_instance, job_id) }.to change {
+                                                         location.reload.address
+                                                       }.to('8 Sentosa Gateway, Beach Villas')
     end
 
     it 'creates new amenities' do

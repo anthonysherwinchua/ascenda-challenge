@@ -12,9 +12,9 @@ RSpec.describe HotelDataJob, type: :job do
     end
 
     it 'enqueues the job' do
-      expect {
+      expect do
         described_class.perform_async(supplier_id)
-      }.to change(described_class.jobs, :size).by(1)
+      end.to change(described_class.jobs, :size).by(1)
     end
   end
 end

@@ -5,7 +5,7 @@ RSpec.describe Matchers::Common do
 
   describe '#longest_string' do
     it 'returns the longest string from an array of strings' do
-      expect(subject.longest_string(['short', 'longer', 'longest'])).to eq('longest')
+      expect(subject.longest_string(%w[short longer longest])).to eq('longest')
     end
 
     it 'returns the first element if no strings are present' do

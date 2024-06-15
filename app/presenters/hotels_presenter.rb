@@ -10,9 +10,9 @@ class HotelsPresenter
     # alternatives: Redis, Memcache, FileStore, or Database Store
     Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
       @hotels = Hotel.includes(:location, :amenities)
-      @hotels = @hotels.where("name ILIKE ?", search_term) if search_term
-      @hotels = @hotels.where("hotel_id in (?)", hotel_ids) if hotel_ids
-      @hotels = @hotels.where("destination_id = ?", destination_id) if destination_id
+      @hotels = @hotels.where('name ILIKE ?', search_term) if search_term
+      @hotels = @hotels.where('hotel_id in (?)', hotel_ids) if hotel_ids
+      @hotels = @hotels.where('destination_id = ?', destination_id) if destination_id
       @hotels = @hotels.order(name: :asc).page(page).per(per)
 
       @hotels.map do |hotel|
@@ -37,7 +37,11 @@ class HotelsPresenter
   end
 
   def destination_id
-    @destination_id ||= (Integer(params[:destination]) rescue nil)
+    @destination_id ||= begin
+      Integer(params[:destination])
+    rescue StandardError
+      nil
+    end
   end
 
   def page

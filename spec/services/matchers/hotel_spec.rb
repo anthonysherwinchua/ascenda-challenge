@@ -3,11 +3,10 @@ require 'rails_helper'
 RSpec.describe Matchers::Hotel do
   let(:hotel) do
     create(:hotel,
-      name: 'Old Hotel',
-      description: 'Old but longer description',
-      images: { 'front' => ['old_front.jpg'] },
-      booking_conditions: ['no pets']
-    )
+           name: 'Old Hotel',
+           description: 'Old but longer description',
+           images: { 'front' => ['old_front.jpg'] },
+           booking_conditions: ['no pets'])
   end
   let(:new_attributes) do
     {

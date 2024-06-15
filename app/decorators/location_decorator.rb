@@ -8,10 +8,9 @@ class LocationDecorator < SimpleDelegator
 
   def as_json(options = {})
     super.merge({
-        address: address,
-        lat: latitude,
-        lng: longitude
-      }.stringify_keys
-    )
+      address: address,
+      lat: latitude,
+      lng: longitude
+    }.stringify_keys)
   end
 end

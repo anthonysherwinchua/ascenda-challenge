@@ -3,13 +3,12 @@ require 'rails_helper'
 RSpec.describe Matchers::Location do
   let(:location) do
     create(:location,
-      latitude: 12.34,
-      longitude: 56.78,
-      address: 'Old Address',
-      city: 'Old City',
-      country: 'Old Country',
-      zipcode: '12345'
-    )
+           latitude: 12.34,
+           longitude: 56.78,
+           address: 'Old Address',
+           city: 'Old City',
+           country: 'Old Country',
+           zipcode: '12345')
   end
   let(:new_attributes) do
     {
