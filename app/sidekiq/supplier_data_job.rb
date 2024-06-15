@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SupplierDataJob
   include Sidekiq::Job
 

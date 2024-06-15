@@ -1,4 +1,5 @@
-# spec/jobs/supplier_data_job_spec.rb
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'sidekiq/testing'
 

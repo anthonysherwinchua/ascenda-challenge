@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HotelDataCleaner
   def self.call
     return if Supplier.started.exists?
@@ -6,8 +8,6 @@ class HotelDataCleaner
 
     Hotel.where.not(scrape_job_id: scrape_job_ids).or(
       Hotel.where(scrape_job_id: nil)
-    ).find_each do |hotel|
-      hotel.destroy
-    end
+    ).find_each(&:destroy)
   end
 end

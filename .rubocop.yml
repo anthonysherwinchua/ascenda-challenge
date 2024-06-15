@@ -1,0 +1,11 @@
+Metrics/BlockLength:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 255
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false

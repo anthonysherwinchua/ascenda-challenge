@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Orm::Acme do
@@ -153,7 +155,7 @@ RSpec.describe Orm::Acme do
     end
   end
 
-  describe "#delete?" do
+  describe '#delete?' do
     it { expect(subject.delete?).to eq(false) }
   end
 end

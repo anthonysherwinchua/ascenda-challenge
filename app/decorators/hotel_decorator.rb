@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HotelDecorator < SimpleDelegator
   def id
     hotel_id

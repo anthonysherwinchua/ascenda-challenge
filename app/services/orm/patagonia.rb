@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Orm
   class Patagonia < Base
     include Orm::Parsers::Zipcode

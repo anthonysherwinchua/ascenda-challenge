@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Orm
   class Base
     attr_reader :original_attributes

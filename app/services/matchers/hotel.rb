@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Matchers
   class Hotel
     include Matchers::Common

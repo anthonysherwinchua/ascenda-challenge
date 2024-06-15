@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :after_party do
   desc 'Deployment task: generate_suppliers'
   task generate_suppliers: :environment do
@@ -5,9 +7,9 @@ namespace :after_party do
 
     Supplier.create(
       [
-        { name: "acme", url: "https://5f2be0b4ffc88500167b85a0.mockapi.io/suppliers/acme" },
-        { name: "patagonia", url: "https://5f2be0b4ffc88500167b85a0.mockapi.io/suppliers/patagonia" },
-        { name: "paperflies", url: "https://5f2be0b4ffc88500167b85a0.mockapi.io/suppliers/paperflies" },
+        { name: 'acme', url: 'https://5f2be0b4ffc88500167b85a0.mockapi.io/suppliers/acme' },
+        { name: 'patagonia', url: 'https://5f2be0b4ffc88500167b85a0.mockapi.io/suppliers/patagonia' },
+        { name: 'paperflies', url: 'https://5f2be0b4ffc88500167b85a0.mockapi.io/suppliers/paperflies' }
       ]
     )
 

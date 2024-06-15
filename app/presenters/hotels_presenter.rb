@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HotelsPresenter
   attr_reader :hotels, :params
 
@@ -10,9 +12,7 @@ class HotelsPresenter
     # alternatives: Redis, Memcache, FileStore, or Database Store
     Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
       @hotels = Hotel.includes(:location, :amenities)
-      @hotels = @hotels.where('name ILIKE ?', search_term) if search_term
-      @hotels = @hotels.where('hotel_id in (?)', hotel_ids) if hotel_ids
-      @hotels = @hotels.where('destination_id = ?', destination_id) if destination_id
+      @hotels = filter(@hotels)
       @hotels = @hotels.order(name: :asc).page(page).per(per)
 
       @hotels.map do |hotel|
@@ -22,6 +22,13 @@ class HotelsPresenter
   end
 
   private
+
+  def filter(hotels)
+    hotels = hotels.where('name ILIKE ?', search_term) if search_term
+    hotels = hotels.where('hotel_id in (?)', hotel_ids) if hotel_ids
+    hotels = hotels.where('destination_id = ?', destination_id) if destination_id
+    hotels
+  end
 
   def cache_key
     json_string = JSON.generate(params)
@@ -45,10 +52,10 @@ class HotelsPresenter
   end
 
   def page
-    params[:page].to_i > 0 ? params[:page].to_i : 1
+    params[:page].to_i.positive? ? params[:page].to_i : 1
   end
 
   def per
-    params[:per].to_i > 0 ? params[:per].to_i : 5
+    params[:per].to_i.positive? ? params[:per].to_i : 5
   end
 end

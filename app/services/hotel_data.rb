@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HotelData
   attr_reader :supplier
 
@@ -29,26 +31,11 @@ class HotelData
     ActiveRecord::Base.transaction do
       hotel = Hotel.find_or_initialize_by(orm_instance.main_attributes)
 
-      location_attributes = Matchers::Location.new(hotel.location, orm_instance.location_attributes).attributes
-      if hotel.location
-        hotel.location.update!(location_attributes)
-      else
-        hotel.location = Location.create!(location_attributes)
-      end
+      update_location(hotel, orm_instance)
 
-      new_hotel_attributes = Matchers::Hotel.new(hotel, orm_instance.attributes).attributes.merge(
-        scraped_at: Time.current,
-        scrape_job_id: job_id
-      )
+      hotel.update!(new_hotel_attributes(hotel, orm_instance, job_id))
 
-      hotel.update!(new_hotel_attributes)
-
-      orm_instance.amenities_attributes.each do |key, values|
-        values.each do |value|
-          # TODO: Need another job to merge amenity with the same name but with different category and update this relationship
-          hotel.amenities << Amenity.find_or_create_by(category: key, name: value)
-        end
-      end
+      update_amenities(hotel, orm_instance)
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error(e.message)
     end
@@ -70,5 +57,32 @@ class HotelData
     Rails.logger.error("Invalid response: #{e.message}")
 
     { error: 'failed to parse response' }
+  end
+
+  def update_location(hotel, orm_instance)
+    location_attributes = Matchers::Location.new(hotel.location, orm_instance.location_attributes).attributes
+
+    if hotel.location
+      hotel.location.update!(location_attributes)
+    else
+      hotel.location = Location.create!(location_attributes)
+    end
+  end
+
+  def update_amenities(hotel, orm_instance)
+    orm_instance.amenities_attributes.each do |key, values|
+      values.each do |value|
+        # TODO: Need another job to merge amenity with the same name
+        # but with different category and update this relationship
+        hotel.amenities << Amenity.find_or_create_by(category: key, name: value)
+      end
+    end
+  end
+
+  def new_hotel_attributes(hotel, orm_instance, job_id)
+    Matchers::Hotel.new(hotel, orm_instance.attributes).attributes.merge(
+      scraped_at: Time.current,
+      scrape_job_id: job_id
+    )
   end
 end

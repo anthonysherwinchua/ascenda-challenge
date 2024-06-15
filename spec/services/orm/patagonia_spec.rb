@@ -1,4 +1,5 @@
-# spec/orm/subject_spec.rb
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Orm::Patagonia do
@@ -10,7 +11,15 @@ RSpec.describe Orm::Patagonia do
       "lat": 1.264751,
       "lng": 103.824006,
       "address": '8 Sentosa Gateway, Beach Villas, 098269',
-      "info": 'Located at the western tip of Resorts World Sentosa, guests at the Beach Villas are guaranteed privacy while they enjoy spectacular views of glittering waters. Guests will find themselves in paradise with this series of exquisite tropical sanctuaries, making it the perfect setting for an idyllic retreat. Within each villa, guests will discover living areas and bedrooms that open out to mini gardens, private timber sundecks and verandahs elegantly framing either lush greenery or an expanse of sea. Guests are assured of a superior slumber with goose feather pillows and luxe mattresses paired with 400 thread count Egyptian cotton bed linen, tastefully paired with a full complement of luxurious in-room amenities and bathrooms boasting rain showers and free-standing tubs coupled with an exclusive array of ESPA amenities and toiletries. Guests also get to enjoy complimentary day access to the facilities at Asia’s flagship spa – the world-renowned ESPA.',
+      "info": 'Located at the western tip of Resorts World Sentosa, guests at the Beach Villas are guaranteed privacy ' \
+        'while they enjoy spectacular views of glittering waters. Guests will find themselves in paradise with this ' \
+        'series of exquisite tropical sanctuaries, making it the perfect setting for an idyllic retreat. Within each ' \
+        'villa, guests will discover living areas and bedrooms that open out to mini gardens, private timber sundecks ' \
+        'and verandahs elegantly framing either lush greenery or an expanse of sea. Guests are assured of a superior ' \
+        'slumber with goose feather pillows and luxe mattresses paired with 400 thread count Egyptian cotton bed linen, ' \
+        'tastefully paired with a full complement of luxurious in-room amenities and bathrooms boasting rain showers ' \
+        'and free-standing tubs coupled with an exclusive array of ESPA amenities and toiletries. Guests also get to ' \
+        'enjoy complimentary day access to the facilities at Asia’s flagship spa – the world-renowned ESPA.',
       "amenities": [
         'Aircon',
         'Tv',
@@ -49,33 +58,43 @@ RSpec.describe Orm::Patagonia do
 
   describe '#attributes' do
     it 'returns a cleaned hash of hotel attributes' do
-      expect(subject.attributes).to eq({
-                                         name: 'Beach Villas Singapore',
-                                         description: 'Located at the western tip of Resorts World Sentosa, guests at the Beach Villas are guaranteed privacy while they enjoy spectacular views of glittering waters. Guests will find themselves in paradise with this series of exquisite tropical sanctuaries, making it the perfect setting for an idyllic retreat. Within each villa, guests will discover living areas and bedrooms that open out to mini gardens, private timber sundecks and verandahs elegantly framing either lush greenery or an expanse of sea. Guests are assured of a superior slumber with goose feather pillows and luxe mattresses paired with 400 thread count Egyptian cotton bed linen, tastefully paired with a full complement of luxurious in-room amenities and bathrooms boasting rain showers and free-standing tubs coupled with an exclusive array of ESPA amenities and toiletries. Guests also get to enjoy complimentary day access to the facilities at Asia’s flagship spa – the world-renowned ESPA.',
-                                         images: {
-                                           rooms: [
-                                             {
-                                               link: 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/2.jpg',
-                                               description: 'Double room'
-                                             },
-                                             {
-                                               link: 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/4.jpg',
-                                               description: 'Bathroom'
-                                             }
-                                           ],
-                                           amenities: [
-                                             {
-                                               link: 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/0.jpg',
-                                               description: 'RWS'
-                                             },
-                                             {
-                                               link: 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/6.jpg',
-                                               description: 'Sentosa Gateway'
-                                             }
-                                           ]
-                                         }.stringify_keys,
-                                         booking_conditions: nil
-                                       })
+      expect(subject.attributes).to eq(
+        {
+          name: 'Beach Villas Singapore',
+          description: 'Located at the western tip of Resorts World Sentosa, guests at the Beach Villas are guaranteed privacy ' \
+            'while they enjoy spectacular views of glittering waters. Guests will find themselves in paradise with this ' \
+            'series of exquisite tropical sanctuaries, making it the perfect setting for an idyllic retreat. Within each ' \
+            'villa, guests will discover living areas and bedrooms that open out to mini gardens, private timber sundecks ' \
+            'and verandahs elegantly framing either lush greenery or an expanse of sea. Guests are assured of a superior ' \
+            'slumber with goose feather pillows and luxe mattresses paired with 400 thread count Egyptian cotton bed linen, ' \
+            'tastefully paired with a full complement of luxurious in-room amenities and bathrooms boasting rain showers ' \
+            'and free-standing tubs coupled with an exclusive array of ESPA amenities and toiletries. Guests also get to ' \
+            'enjoy complimentary day access to the facilities at Asia’s flagship spa – the world-renowned ESPA.',
+          images: {
+            rooms: [
+              {
+                link: 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/2.jpg',
+                description: 'Double room'
+              },
+              {
+                link: 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/4.jpg',
+                description: 'Bathroom'
+              }
+            ],
+            amenities: [
+              {
+                link: 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/0.jpg',
+                description: 'RWS'
+              },
+              {
+                link: 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/6.jpg',
+                description: 'Sentosa Gateway'
+              }
+            ]
+          }.stringify_keys,
+          booking_conditions: nil
+        }
+      )
     end
   end
 
@@ -130,7 +149,17 @@ RSpec.describe Orm::Patagonia do
 
   describe '#description' do
     it 'returns the description' do
-      expect(subject.description).to eq('Located at the western tip of Resorts World Sentosa, guests at the Beach Villas are guaranteed privacy while they enjoy spectacular views of glittering waters. Guests will find themselves in paradise with this series of exquisite tropical sanctuaries, making it the perfect setting for an idyllic retreat. Within each villa, guests will discover living areas and bedrooms that open out to mini gardens, private timber sundecks and verandahs elegantly framing either lush greenery or an expanse of sea. Guests are assured of a superior slumber with goose feather pillows and luxe mattresses paired with 400 thread count Egyptian cotton bed linen, tastefully paired with a full complement of luxurious in-room amenities and bathrooms boasting rain showers and free-standing tubs coupled with an exclusive array of ESPA amenities and toiletries. Guests also get to enjoy complimentary day access to the facilities at Asia’s flagship spa – the world-renowned ESPA.')
+      expect(subject.description).to eq(
+        'Located at the western tip of Resorts World Sentosa, guests at the Beach Villas are guaranteed privacy ' \
+        'while they enjoy spectacular views of glittering waters. Guests will find themselves in paradise with this ' \
+        'series of exquisite tropical sanctuaries, making it the perfect setting for an idyllic retreat. Within each ' \
+        'villa, guests will discover living areas and bedrooms that open out to mini gardens, private timber sundecks ' \
+        'and verandahs elegantly framing either lush greenery or an expanse of sea. Guests are assured of a superior ' \
+        'slumber with goose feather pillows and luxe mattresses paired with 400 thread count Egyptian cotton bed linen, ' \
+        'tastefully paired with a full complement of luxurious in-room amenities and bathrooms boasting rain showers ' \
+        'and free-standing tubs coupled with an exclusive array of ESPA amenities and toiletries. Guests also get to ' \
+        'enjoy complimentary day access to the facilities at Asia’s flagship spa – the world-renowned ESPA.'
+      )
     end
   end
 
@@ -250,7 +279,7 @@ RSpec.describe Orm::Patagonia do
     end
   end
 
-  describe "#delete?" do
+  describe '#delete?' do
     it { expect(subject.delete?).to eq(false) }
   end
 end
