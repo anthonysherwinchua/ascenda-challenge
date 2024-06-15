@@ -57,7 +57,7 @@ Setup ruby version and gemset with your preferred ruby and gem manager
 ### how to pull and merge data?
 run the following command in the terminal
 ```
-bundle exec rails sidekiq
+bundle exec sidekiq
 ```
 this will wait and process the background jobs
 
@@ -71,7 +71,8 @@ Going back to the `sidekiq` terminal, it should start logging some information
 ### about the code
 
 - `SupplierDataJob` is in `app/sidekiq/supplier_data_job.rb`
-  - it iterates through the suppliers and then creates another job to process it
+  - it iterates through the suppliers and then creates another job to process the hotels data
+  - this is scheduled to run every 6 hours. see: `config/sidekiq.yml`
 - `HotelDataJob` is in `app/sidekiq/hotel_data_job.rb`
   - it calls `HotelData` to start fetching and merging the hotels data
 
@@ -107,7 +108,7 @@ The matchers can be found in `app/services/matchers`
 [Back to top](#links)
 
 # Removing data
-A scheduled `HotelDataCleanerJob` runs every minute. It does the following:
+A scheduled `HotelDataCleanerJob` runs every 30 minutes. It does the following:
 - checks if any supplier is in `started` state. This indicates there is an ongoing scraping
 - when all supplier is in `completed` state, it deletes all `Hotel` which doesn't match any of the supplier's job_id
 
