@@ -1,30 +1,24 @@
 # frozen_string_literal: true
 
 class HotelData
-  attr_reader :supplier
+  attr_reader :supplier_id, :main_id, :errors
 
-  ORM_MAPPING = {
-    acme: Orm::Acme,
-    paperflies: Orm::Paperflies,
-    patagonia: Orm::Patagonia
-  }.freeze
-
-  def initialize(supplier_id)
-    @supplier = Supplier.find_by(id: supplier_id)
+  def initialize(supplier_id, main_id)
+    @main_id = main_id
+    @supplier_id = supplier_id
   end
 
   def call(job_id)
-    return "ORM not found for #{supplier&.name}" unless orm
+    hotel_source = HotelSource.new(supplier_id, job_id, main_id)
 
-    supplier.update(scrape_job_id: job_id, scrape_status: :started)
-
-    data.each do |attributes|
-      orm_instance = orm.new(attributes)
-
-      save(orm_instance, job_id) unless orm_instance.delete?
+    hotel_source.data.each do |orm_instance|
+      save(orm_instance, job_id)
     end
 
-    supplier.update(scrape_job_id: job_id, scrape_status: :completed)
+    return if supplier.update(scrape_job_id: job_id, scrape_status: :completed)
+
+    @errors = "[#{@main_id}] ERROR: #{supplier.errors.full_messages}"
+    false
   end
 
   def save(orm_instance, job_id)
@@ -37,27 +31,11 @@ class HotelData
 
       update_amenities(hotel, orm_instance)
     rescue ActiveRecord::RecordInvalid => e
-      Rails.logger.error(e.message)
+      Rails.logger.error "[#{@main_id}] #{e.message}"
     end
   end
 
   private
-
-  def orm
-    @orm ||= ORM_MAPPING[supplier.name.to_sym]
-  end
-
-  def response
-    @response ||= HTTParty.get(supplier.url)
-  end
-
-  def data
-    @data ||= JSON.parse(response.body)
-  rescue StandardError => e
-    Rails.logger.error("Invalid response: #{e.message}")
-
-    { error: 'failed to parse response' }
-  end
 
   def update_location(hotel, orm_instance)
     location_attributes = Matchers::Location.new(hotel.location, orm_instance.location_attributes).attributes
